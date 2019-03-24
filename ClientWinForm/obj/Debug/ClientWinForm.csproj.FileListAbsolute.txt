@@ -1,0 +1,17 @@
+C:\Users\telos\source\repos\SinalREx\ClientWinForm\bin\Debug\ClientWinForm.exe.config
+C:\Users\telos\source\repos\SinalREx\ClientWinForm\bin\Debug\ClientWinForm.exe
+C:\Users\telos\source\repos\SinalREx\ClientWinForm\bin\Debug\ClientWinForm.pdb
+C:\Users\telos\source\repos\SinalREx\ClientWinForm\obj\Debug\ClientWinForm.Properties.Resources.resources
+C:\Users\telos\source\repos\SinalREx\ClientWinForm\obj\Debug\ClientWinForm.csproj.GenerateResource.cache
+C:\Users\telos\source\repos\SinalREx\ClientWinForm\obj\Debug\ClientWinForm.csproj.CoreCompileInputs.cache
+C:\Users\telos\source\repos\SinalREx\ClientWinForm\obj\Debug\ClientWinForm.exe
+C:\Users\telos\source\repos\SinalREx\ClientWinForm\obj\Debug\ClientWinForm.pdb
+C:\Users\telos\source\repos\SinalREx\ClientWinForm\bin\Debug\Microsoft.AspNet.SignalR.Client.dll
+C:\Users\telos\source\repos\SinalREx\ClientWinForm\bin\Debug\Newtonsoft.Json.dll
+C:\Users\telos\source\repos\SinalREx\ClientWinForm\bin\Debug\Microsoft.AspNet.SignalR.Client.pdb
+C:\Users\telos\source\repos\SinalREx\ClientWinForm\bin\Debug\Microsoft.AspNet.SignalR.Client.xml
+C:\Users\telos\source\repos\SinalREx\ClientWinForm\bin\Debug\Newtonsoft.Json.xml
+C:\Users\telos\source\repos\SinalREx\ClientWinForm\obj\Debug\ClientWinForm.csprojAssemblyReference.cache
+C:\Users\telos\source\repos\SinalREx\ClientWinForm\obj\Debug\ClientWinForm.Form1.resources
+C:\Users\telos\source\repos\SinalREx\ClientWinForm\obj\Debug\ClientWinForm.csproj.CopyComplete
+C:\Users\telos\source\repos\SinalREx\ClientWinForm\bin\Debug\Newtonsoft.Json.pdb
