@@ -28,6 +28,12 @@ namespace ClientWinForm
         const string ServerURI = "http://localhost:2989/signalr";
         private HubConnection Connection { get; set; }
 
+        //게임의 상태를 제어하는 변수들
+        int clientNumber = 0; //호스트는 0 1번은 1 2번은 2 3번은 3로 시작 턴이 끝날 때마다 1씩 더하고 명수로나눈 나머지 -> db에서 얻어옴
+        int playerNumber = 2; //db에서 얻어옴
+        bool myTurn = false;
+        int playTime = 60;
+
 
         public Form1()
         {
@@ -69,6 +75,11 @@ namespace ClientWinForm
                 this.Invoke((Action)(() =>
                     pictureBox1.Image = ToBitmap(JsonConvert.DeserializeObject<NowImage>(jsonString).image)
                     )));
+
+            HubProxy.On<string>("timerStart", (a) => this.Invoke((Action)(() => timer1.Start())));
+
+
+
             // 커넥션을 비동적으로 연결
             try
             {
@@ -86,6 +97,10 @@ namespace ClientWinForm
         // 그림 그릴때 마우스 클리해서 시자작하는 부분
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
+            if (!myTurn)
+            {
+                return;
+            }
             isDrag = true;
             previousPoint = new Point(e.X, e.Y);
         }
@@ -93,6 +108,10 @@ namespace ClientWinForm
         //그림 그릴때 마우스가 움직이는 부분
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
+            if (!myTurn)
+            {
+                return;
+            }
             if (isDrag == true)
             {
                 Point currentPoint = new Point(e.X, e.Y);
@@ -112,6 +131,10 @@ namespace ClientWinForm
         // 위에 HubProxy.On<string>("draw", (jsonString) => ~) 모든 클라에서 수행됨
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
+            if (!myTurn)
+            {
+                return;
+            }
             isDrag = false;
             pictureBox1.DrawToBitmap(bitmap, new Rectangle(0, 0, pictureBox1.Width, pictureBox1.Height));
 
@@ -145,8 +168,62 @@ namespace ClientWinForm
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            //db에서 자기 번호를 받아옴
+
             bitmap = new Bitmap(this.pictureBox1.Width, this.pictureBox1.Height);
             g = Graphics.FromImage(bitmap);
+            timer1.Interval = 1000;
+            label1.Text = playTime.ToString();
+
+            if (clientNumber == 0)
+            {
+                myTurn = true;
+                button2.Enabled = true;
+            }
+            else
+            {
+                button2.Enabled = false;
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (playTime > 0)
+            {
+                playTime -= 1;
+                label1.Text = playTime.ToString();
+                
+            }
+
+            //아무도 못맞추고 0초가 될때
+            if (playTime == 0)
+            {
+                timer1.Stop();
+                playTime = 60;
+                button2.Enabled = true;
+                clientNumber += 1;
+                clientNumber %= playerNumber;
+                if (clientNumber == 0)
+                {
+                    myTurn = true;
+                    button2.Enabled = true;
+                }
+                else
+                {
+                    button2.Enabled = false;
+                }
+                pictureBox1.Image = null;
+                bitmap = new Bitmap(this.pictureBox1.Width, this.pictureBox1.Height);
+                return;
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+            //db에서 현재 플레이어 숫자를 받아옴
+            HubProxy.Invoke("TimerStart", "a");
+            button2.Enabled = false;
         }
     }
 
